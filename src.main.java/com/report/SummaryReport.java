@@ -25,7 +25,8 @@ public class SummaryReport {
 	 * @return int total Participants
 	 */
 	public static int getTotalParticipants() {
-		totalParticipants = ParsedCSVData.getAllEmployees().size();
+		if(ParsedCSVData.getAllEmployees() != null)
+			totalParticipants = ParsedCSVData.getAllEmployees().size();
 		return totalParticipants;
 	}
 
@@ -44,7 +45,8 @@ public class SummaryReport {
 	private static double calculatePercentageOfParticipation() {
 			int total = getTotalParticipants();
 			int noOfParticipantsSubmittedSurvey = ParsedCSVData.getNoOfParticipantsSubmittedSurvey();
-			
+			if(total == 0) 
+				return 0;
 			return (double)(noOfParticipantsSubmittedSurvey *100.00 / total);
 		
 	}

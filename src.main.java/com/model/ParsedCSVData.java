@@ -104,6 +104,9 @@ public class ParsedCSVData {
 	 * @return int total submitted Surveys
 	 */
 	public static int getNoOfParticipantsSubmittedSurvey() {
+		if(allEmployees == null) {
+			return 0;
+		}
 		Iterator<Employee> empIterator = allEmployees.iterator();
 		int submittedCount = 0;
 		while(empIterator.hasNext()) {
