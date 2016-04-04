@@ -27,11 +27,10 @@ public class CSVFileParserTest {
 		ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("survey-1.csv").getFile());
         System.out.println(file.getAbsolutePath());
-        CSVFileParser.readCSVFile(file.getAbsolutePath(), true);
+        CSVFileParser.readCSVFile(file, true);
 			 ParsedCSVData.getQuestions();
 			 ParsedCSVData.getSurveys();
 	         assertEquals(2,ParsedCSVData.getSurveys().size());
-	         int count = ParsedCSVData.getSurveys().size();
 	         //int noOfQues[] = new int[count];
 	         //noOfQues[count] = ParsedCSVData.getSurveys().values().getQuestionNumber().size();
 	         //int expected[] = {3,2};
@@ -45,7 +44,7 @@ public class CSVFileParserTest {
 		ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("survey-2.csv").getFile());
         System.out.println(file.getAbsolutePath());
-		CSVFileParser.readCSVFile(file.getAbsolutePath(), true);
+		CSVFileParser.readCSVFile(file, true);
 	    assertEquals(1,ParsedCSVData.getSurveys().size());
 	    assertEquals(5,ParsedCSVData.getQuestions().size());
 		
@@ -58,8 +57,8 @@ public class CSVFileParserTest {
         File file = new File(classLoader.getResource("survey-1-responses.csv").getFile());
         File file1 = new File(classLoader.getResource("survey-1.csv").getFile());
         System.out.println(file.getAbsolutePath());
-        CSVFileParser.readCSVFile(file1.getAbsolutePath(), true);
-		CSVFileParser.readCSVFile(file.getAbsolutePath(), false);
+        CSVFileParser.readCSVFile(file1, true);
+		CSVFileParser.readCSVFile(file, false);
 		assertEquals(6,ParsedCSVData.getAllEmployees().size());
 		assertEquals(5,ParsedCSVData.getRespSurveys().size());
 		

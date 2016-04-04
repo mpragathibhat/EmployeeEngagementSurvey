@@ -1,5 +1,10 @@
 package com.model;
 
+/**
+ * Class to store all the Text/Question found in Survey inout file
+ * @author pBhat
+ *
+ */
 public class TextOrQuestion {
 	
 	public static int count =0;
@@ -31,7 +36,11 @@ public class TextOrQuestion {
 	public void setText(String text) {
 		this.text = text;
 	}
-
+    /**
+     * TextOrQuestion Object with Question No
+     * @param questionNo
+     * @return TextOrQuestion Object with Question No
+     */
 	public TextOrQuestion getQuestionObject(int questionNo) {
 		int count= ParsedCSVData.getQuestions().size();
 		for(int i=0;i < count; i++) {

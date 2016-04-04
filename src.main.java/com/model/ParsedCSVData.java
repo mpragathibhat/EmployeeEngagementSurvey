@@ -4,36 +4,73 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that stores or cache the CSV input files to help generate summary
+ * @author PBhat
+ *
+ */
 public class ParsedCSVData {
 	
+	/**
+	 * Get Theme to Survey Object
+	 * @return Map<String,Survey> Theme to Survey Object
+	 */
 	public static Map<String,Survey>  getSurveys() {
 		return surveys;
 	}
-
+    
+	/**
+	 * Set Theme to Survey Map
+	 * @param surveys
+	 */
 	public static void setSurveys(Map<String,Survey> surveys) {
 		ParsedCSVData.surveys = surveys;
 	}
 
+	/**
+	 * Get List of all Text/Question in Survey
+	 * @return List<TextOrQuestion> List of all Text/Question in Survey
+	 */
 	public static List<TextOrQuestion> getQuestions() {
 		return questions;
 	}
-
+    
+	/**
+	 * Set List of all Text/Question in Survey
+	 * @param questions
+	 */
 	public static void setQuestions(List<TextOrQuestion> questions) {
 		ParsedCSVData.questions = questions;
 	}
 
+	/**
+	 * get All Employee
+	 * @return  List<Employee> All Employee
+	 */
 	public static List<Employee> getAllEmployees() {
 		return allEmployees;
 	}
-
+    
+	/**
+	 * set All Employee
+	 * @param allEmployees
+	 */
 	public static void setAllEmployees(List<Employee> allEmployees) {
 		ParsedCSVData.allEmployees = allEmployees;
 	}
 
+	/**
+	 * get QuestionNo to ResponseSurvey Object Map
+	 * @return Map<Integer,ResponseSurvey> QuestionNo to ResponseSurvey Object Map
+	 */
 	public static Map<Integer,ResponseSurvey> getRespSurveys() {
 		return respSurveys;
 	}
-
+    
+	/**
+	 * set QuestionNo to ResponseSurvey Object Map
+	 * @param respSurveys
+	 */
 	public static void setRespSurveys(Map<Integer,ResponseSurvey> respSurveys) {
 		ParsedCSVData.respSurveys = respSurveys;
 	}
@@ -46,6 +83,9 @@ public class ParsedCSVData {
 	
 	private static Map<Integer,ResponseSurvey> respSurveys;
 	
+	/**
+	 * Clear all cache
+	 */
 	public static void clear(){
 		if(surveys != null)
 			surveys.clear();
@@ -59,6 +99,10 @@ public class ParsedCSVData {
 			respSurveys.clear();
 	}
 
+	/**
+	 * Calculate total submitted Surveys
+	 * @return int total submitted Surveys
+	 */
 	public static int getNoOfParticipantsSubmittedSurvey() {
 		Iterator<Employee> empIterator = allEmployees.iterator();
 		int submittedCount = 0;
@@ -71,10 +115,11 @@ public class ParsedCSVData {
 		return submittedCount;
 	}
 
-	public static ResponseSurvey getResponseSurveyObj(int questionNumber) {
-		return ParsedCSVData.respSurveys.get(questionNumber);
-	}
-
+	/**
+	 * Get the TextOrQuestion Object with corresponding question no 
+	 * @param questionNumber int
+	 * @return TextOrQuestion
+	 */
 	public static TextOrQuestion getQuestionForEmpNumber(int questionNumber) {
 		Iterator<TextOrQuestion> quesIterator = ParsedCSVData.getQuestions().iterator();
 		while(quesIterator.hasNext()) {
@@ -86,6 +131,11 @@ public class ParsedCSVData {
 		return null;	
 	}
 
+	/**
+	 * Employee object with employee number
+	 * @param employeeNumber
+	 * @return Employee
+	 */
 	public static Employee getEmployeeForEmpNo(int employeeNumber) {
 		int count = ParsedCSVData.allEmployees.size();
 		for(int i =0; i < count ;i++) {

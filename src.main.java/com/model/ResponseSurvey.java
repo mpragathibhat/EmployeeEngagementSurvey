@@ -6,16 +6,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class to store the question or Text response of Employee from survey response file
+ * @author PBhat
+ *
+ */
 public class ResponseSurvey {
 	
+	/**
+	 * Unique number assigned to each question found in the order seen in csv file
+	 * @return question number
+	 */
 	public int getQuestionNumber() {
 		return questionNumber;
 	}
 
+	/**
+	 * set question Number 
+	 * @param questionNumber
+	 */
 	public void setQuestionNumber(int questionNumber) {
 		this.questionNumber = questionNumber;
 	}
 
+	/**
+	 * Get list of EmpNo to his response for a question of responseSurvey question no
+	 * @return List<ResponseData> list of EmpNo to his response for a question of responseSurvey question no
+	 */
 	public List<ResponseData> getResponseList() {
 		if(responseList == null) {
 			responseList = new ArrayList<ResponseData>();
@@ -23,15 +40,20 @@ public class ResponseSurvey {
 		return responseList;
 	}
 	
-		
+	/**
+	 * Calculate avg rating provided by participant for each question in survey
+	 * @return Map<String,Double> Map of text/Question to avg rating provided by participant
+	 */
 	public static Map<String, Double> calculateAvgRatingPerQuestion() {
 		Iterator<TextOrQuestion> questIterator = ParsedCSVData.getQuestions().iterator();
 		Map<String,Double> avgRatingForQuestion =new HashMap<String,Double>();
 		while(questIterator.hasNext()) {
 			TextOrQuestion txtOrQues = questIterator.next();
+			//get only question of rating type to calculate its avg rating
 			if(txtOrQues.getQuestionType().equalsIgnoreCase("ratingquestion")){
-				//avgRatingForQuestion = new HashMap<String,Double>();
+				//Get ResponseSurvey Object for that question
 				ResponseSurvey responseObj = ParsedCSVData.getRespSurveys().get(txtOrQues.getQuestionNumber());
+				//Get all the ResponseData i.e, empNo to Response rating List
 				Iterator<ResponseData> respListIterator = responseObj.getResponseList().iterator();
 				int sumOfRatingValues=0, totalNoOfQuestions=0;
 				while(respListIterator.hasNext()) {
@@ -45,26 +67,29 @@ public class ResponseSurvey {
 					
 				}
 				double avgRating = (double)(sumOfRatingValues)/(double)totalNoOfQuestions;
-				/*int questionNo= txtOrQues.getQuestionNumber();
-				Iterator<TextOrQuestion> quesIte = ParsedCSVData.getQuestions().iterator();
-				String quesText = null;
-				while(quesIte.hasNext()) {
-					TextOrQuestion ques = quesIte.next();
-					if(ques.getQuestionNumber() == questionNo) {
-						quesText = ques.getText();
-					}
-				}*/
+				
 				avgRatingForQuestion.put(txtOrQues.getQuestionObject(txtOrQues.getQuestionNumber()).getText(), avgRating);
 			}
 		}
 		return avgRatingForQuestion;
 	}
+	
+	/**
+	 * set ReponseData List
+	 * @param responseList
+	 */
 	public void setResponseList(List<ResponseData> responseList) {
 		this.responseList = responseList;
 	}
 
+	
 	private int questionNumber;
 	
+	/**
+	 * EmpNumber to the response provided by employee
+	 * @author pBhat
+	 *
+	 */
 	 class ResponseData {
 		public int getEmployeeNumber() {
 			return employeeNumber;
@@ -83,7 +108,11 @@ public class ResponseSurvey {
 
 	private List<ResponseData> responseList;
 
-	
+	/**
+	 * Add response data
+	 * @param employeeNumber
+	 * @param answer
+	 */
 	public void addResponseData(int employeeNumber, String answer) {
 		this.getResponseList().add(new ResponseData(employeeNumber, answer));
 		
