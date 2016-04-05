@@ -70,12 +70,15 @@ public class SummaryReport {
 	public static void displaySummaryReportOnConsole() {
 		System.out.format("%-100s %n%n", "Summary of the Survey Result is: ");
 		System.out.format("%-100s %d%n","Number of Participants in the survey :  " , getTotalParticipants());
-		System.out.format("%-100s %.2f%n%n","Percentage of prticipant in survey : " , calculatePercentageOfParticipation());
-		System.out.format("%-100s %n%n" , "Average Rating by the participant in the Survey  :");
+		System.out.format("%-100s %.2f%n%n","Percentage of participation in the survey : " , calculatePercentageOfParticipation());
+		
 		getAvgRatingOfEachQuestion();
-		Set<Map.Entry<String, Double>> avgQuestionRatingentrySet = avgRatingOfEachQuestion.entrySet();
-		for(Map.Entry<String, Double> entry : avgQuestionRatingentrySet) {
-			System.out.format("%-100s %.2f %n %n", WordUtils.wrap(entry.getKey().trim(), 95), entry.getValue());
+			if(avgRatingOfEachQuestion.size() != 0) {
+			System.out.format("%-100s %n%n" , "Average Rating by the participant in the Survey  :");
+			Set<Map.Entry<String, Double>> avgQuestionRatingentrySet = avgRatingOfEachQuestion.entrySet();
+			for(Map.Entry<String, Double> entry : avgQuestionRatingentrySet) {
+				System.out.format("%-100s %5.2f %n %n", WordUtils.wrap(entry.getKey().trim(), 95), entry.getValue());
+			}
 		}
 		
 	}
