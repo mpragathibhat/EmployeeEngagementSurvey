@@ -61,7 +61,7 @@ public class ResponseSurvey {
 					Employee emp = ParsedCSVData.getEmployeeForEmpNo(empNoResp.getEmployeeNumber());
 					String ratingAnswers = empNoResp.getAnswer();
 					if(ratingAnswers!=null && ratingAnswers.trim().length() > 0 && emp.hasEmployeeSubmittedSurvey()) {
-						sumOfRatingValues +=Integer.parseInt(ratingAnswers);
+						sumOfRatingValues +=convertRatingToInt(ratingAnswers);
 						totalNoOfQuestions++;
 					}
 					
@@ -70,8 +70,25 @@ public class ResponseSurvey {
 				
 				avgRatingForQuestion.put(txtOrQues.getQuestionObject(txtOrQues.getQuestionNumber()).getText(), avgRating);
 			}
+			
 		}
+		//If the responseData List size is greater than the Questions list size then there is some mismatch in input files provided
+		//we could use this to warn the user after report generation currently not handled
 		return avgRatingForQuestion;
+	}
+
+	private static int convertRatingToInt(String ratingAnswers) {
+		int rating=0;	
+	
+		try {
+			rating = Integer.parseInt(ratingAnswers);
+		} catch(NumberFormatException ex) {
+			//Some problem with input file provided I can mention that to user but donot want to stop the summary report generation
+			//Could have an boolean to mention an error has happened and could mention a warning after report generation completion
+			//currently not handled
+			return 0;
+		}
+		return rating;
 	}
 	
 	/**
