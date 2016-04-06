@@ -61,8 +61,11 @@ public class ResponseSurvey {
 					Employee emp = ParsedCSVData.getEmployeeForEmpNo(empNoResp.getEmployeeNumber());
 					String ratingAnswers = empNoResp.getAnswer();
 					if(ratingAnswers!=null && ratingAnswers.trim().length() > 0 && emp.hasEmployeeSubmittedSurvey()) {
-						sumOfRatingValues +=convertRatingToInt(ratingAnswers);
-						totalNoOfQuestions++;
+						int rating = convertRatingToInt(ratingAnswers);
+						if(rating != -1) {
+							sumOfRatingValues +=rating;
+							totalNoOfQuestions++;
+						}
 					}
 					
 				}
@@ -86,7 +89,7 @@ public class ResponseSurvey {
 			//Some problem with input file provided I can mention that to user but donot want to stop the summary report generation
 			//Could have an boolean to mention an error has happened and could mention a warning after report generation completion
 			//currently not handled
-			return 0;
+			return -1;
 		}
 		return rating;
 	}
